@@ -197,7 +197,11 @@ export default function SettingsManager() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <ImageUpload
                 label="Primary Brand Logo (Transparent Symbol)"
-                value={settings.logoUrl || ''}
+                value={
+                  settings.logoUrl === '/images/logo.png' || settings.logoUrl === '/images/logo-clean.png'
+                    ? '/images/imarka-symbol.png'
+                    : settings.logoUrl || '/images/imarka-symbol.png'
+                }
                 onChange={(url) => setSettings({ ...settings, logoUrl: url })}
                 aspectRatio="square"
                 helperText="Logo simbol transparan (PNG, SVG, maks. 100MB)."
@@ -205,7 +209,11 @@ export default function SettingsManager() {
 
               <ImageUpload
                 label="Favicon / Browser Tab Icon"
-                value={settings.faviconUrl || ''}
+                value={
+                  settings.faviconUrl === '/images/logo.png' || settings.faviconUrl === '/images/logo-clean.png'
+                    ? '/images/imarka-symbol.png'
+                    : settings.faviconUrl || '/images/imarka-symbol.png'
+                }
                 onChange={(url) => setSettings({ ...settings, faviconUrl: url })}
                 aspectRatio="square"
                 helperText="Ikon tab browser (PNG, ICO, SVG, maks. 100MB)."

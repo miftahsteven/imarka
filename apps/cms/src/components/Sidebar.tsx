@@ -105,7 +105,7 @@ export default function Sidebar() {
 
             <div className="flex items-center gap-1">
               <a
-                href="http://localhost:3000"
+                href="/"
                 target="_blank"
                 rel="noreferrer"
                 className="p-1.5 rounded-md hover:bg-white/10 text-gray-400 hover:text-white transition-colors"

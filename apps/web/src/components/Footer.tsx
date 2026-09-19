@@ -58,7 +58,7 @@ export default async function Footer() {
           {/* Brand Col */}
           <div className="lg:col-span-2 space-y-4">
             <Link href="/" className="inline-block group">
-              <BrandLogo variant="footer" logoUrl={site?.logoWhiteUrl || site?.logoUrl} />
+              <BrandLogo variant="footer" />
             </Link>
             <p className="text-sm font-semibold tracking-wide text-brand-red uppercase">
               {site?.tagline || 'EXPERIENCES THAT INSPIRE'}

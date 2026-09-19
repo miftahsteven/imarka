@@ -40,12 +40,20 @@ export default function BrandLogo({
         word3: 'text-gray-500',
       };
 
+  // Brand mark must always be the transparent symbol (/images/imarka-symbol.png)
+  // Prevent full black banner logos from breaking the transparent standalone symbol mark
+  const isBlackBanner =
+    logoUrl === '/images/logo.png' ||
+    logoUrl === '/images/logo-clean.png' ||
+    logoUrl === '/images/imarka-og-share.png';
+  const symbolSrc = logoUrl && !isBlackBanner ? logoUrl : '/images/imarka-symbol.png';
+
   return (
     <div className={`flex items-center gap-3 select-none ${className}`}>
       {/* Standalone Transparent Logo Mark */}
       <div className={`relative shrink-0 ${sizeClasses} transition-transform duration-200 group-hover:scale-105`}>
         <Image
-          src={logoUrl || '/images/imarka-symbol.png'}
+          src={symbolSrc}
           alt="Imarka Megalo Indonesia"
           width={imagePixelSize}
           height={imagePixelSize}

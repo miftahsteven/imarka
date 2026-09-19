@@ -129,7 +129,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         {/* Brand Logo */}
         <Link href="/" className="group" onClick={closeMenus}>
-          <BrandLogo variant="header" logoUrl={logoUrl} />
+          <BrandLogo variant="header" />
         </Link>
 
         {/* Desktop Navigation */}
