@@ -20,12 +20,24 @@ export async function uploadMediaFile(file: File): Promise<{ url: string; origin
   const formData = new FormData();
   formData.append('file', file);
 
-  const res = await cmsFetch<{ url: string; originalName: string; size: number }>('/admin/media/upload', {
-    method: 'POST',
-    body: formData,
-  });
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 60000); // 60 detik timeout
 
-  return res;
+  try {
+    const res = await cmsFetch<{ url: string; originalName: string; size: number }>('/admin/media/upload', {
+      method: 'POST',
+      body: formData,
+      signal: controller.signal,
+    });
+    return res;
+  } catch (err: any) {
+    if (err.name === 'AbortError') {
+      throw new Error('Upload timeout: Server tidak merespons dalam 60 detik. Periksa konfigurasi proxy (Apache/Nginx) atau coba kompres gambar.');
+    }
+    throw err;
+  } finally {
+    clearTimeout(timeoutId);
+  }
 }
 
 export function getAuthToken(): string | null {

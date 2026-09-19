@@ -517,34 +517,45 @@ router.get('/inquiries/export/csv', async (_req: AuthRequest, res: Response) => 
 
 // 9. Media Library Upload (Under 100MB)
 router.post('/media/upload', (req: AuthRequest, res: Response, next) => {
+  console.log(`[API Upload] Incoming upload request from ${req.user?.email || 'unknown'}`);
   upload.single('file')(req, res, (err: any) => {
     if (err) {
+      console.error('[API Upload] Multer error:', err);
       if (err.code === 'LIMIT_FILE_SIZE') {
         return res.status(400).json({ error: 'Ukuran file melebihi batas maksimum 100MB' });
       }
       return res.status(400).json({ error: err.message || 'Gagal mengunggah file' });
     }
+    console.log(`[API Upload] Multer parsed file successfully: ${req.file?.originalname} (${req.file?.size} bytes)`);
     next();
   });
 }, async (req: AuthRequest, res: Response) => {
   try {
     if (!req.file) {
+      console.warn('[API Upload] No file received in request');
       return res.status(400).json({ error: 'Tidak ada file gambar yang dipilih' });
     }
 
     const filename = req.file.filename;
     const publicUrl = `/uploads/${filename}`;
+    console.log(`[API Upload] Saved file to disk: ${req.file.path}`);
 
     // Synchronize uploaded file into apps/web/public/uploads and apps/cms/public/uploads
-    const webUploadPath = path.resolve(__dirname, '../../../../apps/web/public/uploads', filename);
-    const cmsUploadPath = path.resolve(__dirname, '../../../../apps/cms/public/uploads', filename);
+    const webUploadDir = path.resolve(__dirname, '../../../../apps/web/public/uploads');
+    const cmsUploadDir = path.resolve(__dirname, '../../../../apps/cms/public/uploads');
+
     try {
-      fs.copyFileSync(req.file.path, webUploadPath);
-      fs.copyFileSync(req.file.path, cmsUploadPath);
+      if (!fs.existsSync(webUploadDir)) fs.mkdirSync(webUploadDir, { recursive: true });
+      if (!fs.existsSync(cmsUploadDir)) fs.mkdirSync(cmsUploadDir, { recursive: true });
+
+      fs.copyFileSync(req.file.path, path.join(webUploadDir, filename));
+      fs.copyFileSync(req.file.path, path.join(cmsUploadDir, filename));
+      console.log(`[API Upload] Synced file to web & cms public uploads`);
     } catch (syncErr) {
-      console.warn('Sync to public folders notice:', syncErr);
+      console.warn('[API Upload] Sync to public folders notice:', syncErr);
     }
 
+    console.log(`[API Upload] Inserting MediaAsset record into database...`);
     const asset = await prisma.mediaAsset.create({
       data: {
         filename,
@@ -558,12 +569,13 @@ router.post('/media/upload', (req: AuthRequest, res: Response, next) => {
 
     const sizeInMB = (req.file.size / (1024 * 1024)).toFixed(2);
     await recordAudit(req, 'UPLOAD', 'MediaAsset', asset.id, `Uploaded ${asset.originalName} (${sizeInMB} MB)`);
+    console.log(`[API Upload] Upload completed successfully for ${filename}`);
     return res.status(201).json({
       ...asset,
       url: publicUrl,
     });
   } catch (err: any) {
-    console.error('Upload error:', err);
+    console.error('[API Upload] Error processing upload:', err);
     return res.status(500).json({ error: err.message || 'Failed to process file upload' });
   }
 });
