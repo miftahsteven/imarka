@@ -55,6 +55,7 @@ module.exports = {
       env: {
         NODE_ENV: 'production',
         PORT: 7050,
+        NEXT_PUBLIC_API_URL: 'http://127.0.0.1:7048/api/v1',
       },
       watch: false,
       max_memory_restart: '500M',

@@ -19,7 +19,7 @@ export default function AnalyticsTracker() {
 
         const apiUrl = process.env.NEXT_PUBLIC_API_URL
           ? `${process.env.NEXT_PUBLIC_API_URL}/public/track`
-          : 'http://localhost:4000/api/v1/public/track';
+          : '/api/v1/public/track';
 
         await fetch(apiUrl, {
           method: 'POST',

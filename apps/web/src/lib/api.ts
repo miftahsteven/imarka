@@ -10,12 +10,18 @@ import {
   CustomPage,
 } from '@imarka/types';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1';
+const API_BASE =
+  process.env.NEXT_PUBLIC_API_URL ||
+  (typeof window !== 'undefined'
+    ? '/api/v1'
+    : process.env.NODE_ENV === 'production'
+    ? 'http://127.0.0.1:7048/api/v1'
+    : 'http://localhost:4000/api/v1');
 
 export async function fetchApi<T>(endpoint: string, options?: RequestInit): Promise<T | null> {
   try {
     const res = await fetch(`${API_BASE}${endpoint}`, {
-      next: { revalidate: 60 },
+      next: { revalidate: 10 },
       ...options,
     });
     if (!res.ok) {

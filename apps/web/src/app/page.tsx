@@ -12,7 +12,7 @@ import TeamPreviewSection from '@/components/TeamPreviewSection';
 import FinalCtaBanner from '@/components/FinalCtaBanner';
 import { getHomeData } from '@/lib/api';
 
-export const revalidate = 60;
+export const revalidate = 10;
 
 export default async function HomePage() {
   const homeData = await getHomeData();
