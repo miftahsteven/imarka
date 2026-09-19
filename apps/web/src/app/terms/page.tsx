@@ -6,6 +6,8 @@ export const metadata: Metadata = {
   description: 'Terms of Service for PT IMARKA MEGALO INDONESIA.',
 };
 
+export const dynamic = 'force-dynamic';
+
 export default function TermsPage() {
   return (
     <div className="pt-24 min-h-screen bg-white">

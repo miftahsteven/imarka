@@ -12,7 +12,7 @@ import TeamPreviewSection from '@/components/TeamPreviewSection';
 import FinalCtaBanner from '@/components/FinalCtaBanner';
 import { getHomeData } from '@/lib/api';
 
-export const revalidate = 10;
+export const dynamic = 'force-dynamic';
 
 export default async function HomePage() {
   const homeData = await getHomeData();
@@ -31,10 +31,10 @@ export default async function HomePage() {
       />
 
       {/* 3. Who We Are */}
-      <WhoWeAreSection />
+      <WhoWeAreSection data={homeData?.whoWeAre} />
 
       {/* 4. Core Services */}
-      <CoreServicesSection />
+      <CoreServicesSection services={homeData?.coreServices} />
 
       {/* 5. How We Work (Process Flow) */}
       <HowWeWorkSection />

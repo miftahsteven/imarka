@@ -21,7 +21,7 @@ const API_BASE =
 export async function fetchApi<T>(endpoint: string, options?: RequestInit): Promise<T | null> {
   try {
     const res = await fetch(`${API_BASE}${endpoint}`, {
-      next: { revalidate: 10 },
+      cache: 'no-store',
       ...options,
     });
     if (!res.ok) {

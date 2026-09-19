@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     'Meet the directors and production leads powering IMARKA Megalo Indonesia.',
 };
 
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
 
 export default async function TeamPage() {
   const teamData = await getTeam();

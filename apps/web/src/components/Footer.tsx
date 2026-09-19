@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Mail, Phone, MapPin, Instagram, Linkedin, ArrowUpRight } from 'lucide-react';
 import BrandLogo from './BrandLogo';
-import { getNavigation } from '@/lib/api';
+import { getNavigation, getSiteData } from '@/lib/api';
 
 const DEFAULT_SERVICES_LINKS = [
   { label: 'Branding & Marketing', url: '/services/branding-marketing' },
@@ -27,11 +27,14 @@ const DEFAULT_LEGAL_LINKS = [
 ];
 
 export default async function Footer() {
-  const [servicesData, companyData, legalData] = await Promise.all([
+  const [servicesData, companyData, legalData, siteData] = await Promise.all([
     getNavigation('FOOTER_SERVICES').catch(() => null),
     getNavigation('FOOTER_COMPANY').catch(() => null),
     getNavigation('FOOTER_LEGAL').catch(() => null),
+    getSiteData().catch(() => null),
   ]);
+
+  const site = siteData?.site;
 
   const servicesLinks =
     servicesData && Array.isArray(servicesData) && servicesData.length > 0
@@ -55,19 +58,18 @@ export default async function Footer() {
           {/* Brand Col */}
           <div className="lg:col-span-2 space-y-4">
             <Link href="/" className="inline-block group">
-              <BrandLogo variant="footer" />
+              <BrandLogo variant="footer" logoUrl={site?.logoWhiteUrl || site?.logoUrl} />
             </Link>
             <p className="text-sm font-semibold tracking-wide text-brand-red uppercase">
-              EXPERIENCES THAT INSPIRE
+              {site?.tagline || 'EXPERIENCES THAT INSPIRE'}
             </p>
             <p className="text-sm text-gray-300 leading-relaxed pr-6">
-              We Create Meaningful Connections That Move People and Drive Impact. Over 20 Years of
-              Excellence in Events, Communication & Experiences. Turning ideas into impactful
-              experiences that inspire change.
+              {site?.description ||
+                'We Create Meaningful Connections That Move People and Drive Impact. Over 20 Years of Excellence in Events, Communication & Experiences. Turning ideas into impactful experiences that inspire change.'}
             </p>
             <div className="flex items-center gap-3 pt-2">
               <a
-                href="https://instagram.com"
+                href={site?.socialInstagram || 'https://instagram.com'}
                 target="_blank"
                 rel="noreferrer"
                 className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-gray-300 hover:text-white hover:bg-brand-red transition-all"
@@ -76,7 +78,7 @@ export default async function Footer() {
                 <Instagram size={18} />
               </a>
               <a
-                href="https://linkedin.com"
+                href={site?.socialLinkedin || 'https://linkedin.com'}
                 target="_blank"
                 rel="noreferrer"
                 className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-gray-300 hover:text-white hover:bg-brand-red transition-all"
@@ -136,19 +138,19 @@ export default async function Footer() {
             <ul className="space-y-3 text-sm text-gray-300">
               <li className="flex items-start gap-2.5">
                 <Mail size={16} className="text-brand-red shrink-0 mt-0.5" />
-                <a href="mailto:emmy@imarka-megalo.com" className="hover:text-white transition-colors">
-                  emmy@imarka-megalo.com
+                <a href={`mailto:${site?.contactEmail || 'emmy@imarka-megalo.com'}`} className="hover:text-white transition-colors">
+                  {site?.contactEmail || 'emmy@imarka-megalo.com'}
                 </a>
               </li>
               <li className="flex items-start gap-2.5">
                 <Phone size={16} className="text-brand-red shrink-0 mt-0.5" />
-                <a href="tel:08569529955" className="hover:text-white transition-colors">
-                  08569529955
+                <a href={`tel:${site?.contactPhone || '08569529955'}`} className="hover:text-white transition-colors">
+                  {site?.contactPhone || '08569529955'}
                 </a>
               </li>
               <li className="flex items-start gap-2.5">
                 <MapPin size={16} className="text-brand-red shrink-0 mt-0.5" />
-                <span>Jakarta & Regional Strategic Operations, Indonesia</span>
+                <span>{site?.address || 'Jakarta & Regional Strategic Operations, Indonesia'}</span>
               </li>
               <li className="pt-2">
                 <Link
@@ -171,14 +173,12 @@ export default async function Footer() {
                 {item.label}
               </Link>
             ))}
-            <a
-              href="http://localhost:5173"
-              target="_blank"
-              rel="noreferrer"
+            <Link
+              href="/webpanel"
               className="text-gray-400 hover:text-brand-red transition-colors"
             >
               CMS Portal
-            </a>
+            </Link>
           </div>
         </div>
       </div>

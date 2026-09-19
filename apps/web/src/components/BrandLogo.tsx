@@ -5,12 +5,14 @@ interface BrandLogoProps {
   className?: string;
   variant?: 'header' | 'footer' | 'compact';
   showText?: boolean;
+  logoUrl?: string | null;
 }
 
 export default function BrandLogo({
   className = '',
   variant = 'header',
   showText = true,
+  logoUrl,
 }: BrandLogoProps) {
   const isFooter = variant === 'footer';
   const isCompact = variant === 'compact';
@@ -43,7 +45,7 @@ export default function BrandLogo({
       {/* Standalone Transparent Logo Mark */}
       <div className={`relative shrink-0 ${sizeClasses} transition-transform duration-200 group-hover:scale-105`}>
         <Image
-          src="/images/imarka-symbol.png"
+          src={logoUrl || '/images/imarka-symbol.png'}
           alt="Imarka Megalo Indonesia"
           width={imagePixelSize}
           height={imagePixelSize}

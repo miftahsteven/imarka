@@ -3,7 +3,10 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { Mail, Phone, MapPin, Send, CheckCircle2, AlertCircle } from 'lucide-react';
-import { submitContactForm } from '@/lib/api';
+import { submitContactForm, getSiteData } from '@/lib/api';
+import { SiteSetting } from '@imarka/types';
+
+export const dynamic = 'force-dynamic';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -20,6 +23,15 @@ export default function ContactPage() {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+  const [site, setSite] = useState<SiteSetting | null>(null);
+
+  React.useEffect(() => {
+    getSiteData()
+      .then((data) => {
+        if (data?.site) setSite(data.site);
+      })
+      .catch(() => null);
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -87,10 +99,10 @@ export default function ContactPage() {
                     Email Inquiry
                   </div>
                   <a
-                    href="mailto:emmy@imarka-megalo.com"
+                    href={`mailto:${site?.contactEmail || 'emmy@imarka-megalo.com'}`}
                     className="text-base font-bold text-brand-charcoal hover:text-brand-red transition-colors"
                   >
-                    emmy@imarka-megalo.com
+                    {site?.contactEmail || 'emmy@imarka-megalo.com'}
                   </a>
                   <p className="text-xs text-brand-graphite mt-0.5">
                     Fast response within 24 business hours.
@@ -106,14 +118,22 @@ export default function ContactPage() {
                   <div className="text-xs font-bold uppercase tracking-wider text-brand-charcoal/70">
                     Phone & WhatsApp Direct
                   </div>
-                  <a
-                    href="https://wa.me/628569529955"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-base font-bold text-brand-charcoal hover:text-brand-red transition-colors"
-                  >
-                    08569529955 (+62 856 9529 955)
-                  </a>
+                  {(() => {
+                    const phone = site?.contactPhone || '08569529955';
+                    const wa = site?.contactWhatsapp || '08569529955';
+                    const cleanWa = wa.replace(/\D/g, '');
+                    const waLink = cleanWa.startsWith('0') ? '62' + cleanWa.slice(1) : cleanWa;
+                    return (
+                      <a
+                        href={`https://wa.me/${waLink}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-base font-bold text-brand-charcoal hover:text-brand-red transition-colors"
+                      >
+                        {phone} {wa && wa !== phone ? `(WA: ${wa})` : ''}
+                      </a>
+                    );
+                  })()}
                   <p className="text-xs text-brand-graphite mt-0.5">
                     Available Monday – Saturday for consultation.
                   </p>
@@ -129,10 +149,10 @@ export default function ContactPage() {
                     Operational Base
                   </div>
                   <div className="text-sm font-bold text-brand-charcoal">
-                    PT IMARKA MEGALO INDONESIA
+                    {site?.siteName || 'PT IMARKA MEGALO INDONESIA'}
                   </div>
                   <p className="text-xs text-brand-graphite mt-0.5">
-                    Jakarta, Indonesia. Delivering projects nationwide from Sumatra to Maluku & Papua.
+                    {site?.address || 'Jakarta, Indonesia. Delivering projects nationwide from Sumatra to Maluku & Papua.'}
                   </p>
                 </div>
               </div>

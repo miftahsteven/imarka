@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     'Thought leadership, industry analysis, and practical knowledge from IMARKA Megalo Indonesia.',
 };
 
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
 
 export default async function InsightsPage() {
   const posts = await getInsights();

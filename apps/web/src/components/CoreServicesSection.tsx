@@ -2,52 +2,79 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, Megaphone, CalendarCheck, Users, PackageCheck } from 'lucide-react';
+import { Service } from '@imarka/types';
 
-export default function CoreServicesSection() {
-  const pillars = [
-    {
-      slug: 'branding-marketing',
-      title: 'Branding & Marketing Communication',
-      shortDesc:
-        'Strategic branding and communication solutions designed to build relevance, strengthen brand presence, and connect meaningfully with audiences.',
-      image: '/images/event-arup-hd.jpg',
-      icon: Megaphone,
-      items: [
-        'Strategic Marketing Communication',
-        'Media Event, Press Conference & Trip',
-        'Direct Marketing & Loyalty Programs',
-        'Sampling, In-Store & Booth Production',
-      ],
-    },
-    {
-      slug: 'event-experience',
-      title: 'Event & Experience Solutions',
-      shortDesc:
-        'From state-level summits and product launches to exhibitions and corporate gatherings, we design and execute seamless experiences from concept to completion.',
-      image: '/images/highlight-energizing-maluku-hd.jpg',
-      icon: CalendarCheck,
-      items: [
-        'Conferences, Seminars & Conventions',
-        'Product Reveals & Brand Launches',
-        'Annual Corporate Awards & Galas',
-        'Exhibitions & National Roadshows',
-      ],
-    },
-    {
-      slug: 'training-development',
-      title: 'Training & People Development',
-      shortDesc:
-        'Training, leadership development, workshops, and capability programs designed to help teams and organizations reach maximum potential.',
-      image: '/images/event-commonwealth-hd.jpg',
-      icon: Users,
-      items: [
-        'Frontliners Academy & Service Excellence',
-        'Executive Leadership Development',
-        'Interactive Team Capability Workshops',
-        'Custom Experiential Learning Retreats',
-      ],
-    },
-  ];
+interface CoreServicesSectionProps {
+  services?: Service[];
+}
+
+const iconMap: Record<string, any> = {
+  Megaphone,
+  CalendarCheck,
+  Users,
+  PackageCheck,
+};
+
+const defaultPillars = [
+  {
+    slug: 'branding-marketing',
+    title: 'Branding & Marketing Communication',
+    shortDesc:
+      'Strategic branding and communication solutions designed to build relevance, strengthen brand presence, and connect meaningfully with audiences.',
+    image: '/images/event-arup-hd.jpg',
+    icon: Megaphone,
+    items: [
+      'Strategic Marketing Communication',
+      'Media Event, Press Conference & Trip',
+      'Direct Marketing & Loyalty Programs',
+      'Sampling, In-Store & Booth Production',
+    ],
+  },
+  {
+    slug: 'event-experience',
+    title: 'Event & Experience Solutions',
+    shortDesc:
+      'From state-level summits and product launches to exhibitions and corporate gatherings, we design and execute seamless experiences from concept to completion.',
+    image: '/images/highlight-energizing-maluku-hd.jpg',
+    icon: CalendarCheck,
+    items: [
+      'Conferences, Seminars & Conventions',
+      'Product Reveals & Brand Launches',
+      'Annual Corporate Awards & Galas',
+      'Exhibitions & National Roadshows',
+    ],
+  },
+  {
+    slug: 'training-development',
+    title: 'Training & People Development',
+    shortDesc:
+      'Training, leadership development, workshops, and capability programs designed to help teams and organizations reach maximum potential.',
+    image: '/images/event-commonwealth-hd.jpg',
+    icon: Users,
+    items: [
+      'Frontliners Academy & Service Excellence',
+      'Executive Leadership Development',
+      'Interactive Team Capability Workshops',
+      'Custom Experiential Learning Retreats',
+    ],
+  },
+];
+
+export default function CoreServicesSection({ services }: CoreServicesSectionProps) {
+  const pillars =
+    services && services.length > 0
+      ? services.slice(0, 3).map((s) => ({
+          slug: s.slug,
+          title: s.name,
+          shortDesc: s.shortDescription,
+          image: s.heroImageUrl || '/images/event-arup-hd.jpg',
+          icon: (s.iconName && iconMap[s.iconName]) || Megaphone,
+          items:
+            s.capabilities && s.capabilities.length > 0
+              ? s.capabilities.map((c) => c.name)
+              : [s.shortDescription],
+        }))
+      : defaultPillars;
 
   return (
     <section className="py-20 lg:py-28 bg-brand-light">

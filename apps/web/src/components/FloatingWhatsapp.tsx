@@ -1,11 +1,27 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { getSiteData } from '@/lib/api';
 
 export default function FloatingWhatsapp() {
+  const [waLink, setWaLink] = useState('628569529955');
+
+  useEffect(() => {
+    getSiteData()
+      .then((data) => {
+        if (data?.site?.contactWhatsapp) {
+          const cleaned = data.site.contactWhatsapp.replace(/\D/g, '');
+          if (cleaned) {
+            setWaLink(cleaned.startsWith('0') ? '62' + cleaned.slice(1) : cleaned);
+          }
+        }
+      })
+      .catch(() => null);
+  }, []);
+
   const whatsappUrl =
-    'https://wa.me/628569529955?text=' +
+    `https://wa.me/${waLink}?text=` +
     encodeURIComponent(
       'Halo IMARKA Megalo Indonesia, saya ingin berkonsultasi mengenai kebutuhan event / branding / training.'
     );

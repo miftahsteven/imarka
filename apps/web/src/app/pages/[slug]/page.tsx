@@ -61,7 +61,7 @@ export async function generateMetadata({ params }: CustomPageProps): Promise<Met
   };
 }
 
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
 
 export default async function CustomPageView({ params }: CustomPageProps) {
   const { slug } = await params;

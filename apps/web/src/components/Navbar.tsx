@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { ChevronDown, Menu, X, ArrowRight, PhoneCall } from 'lucide-react';
 import BrandLogo from './BrandLogo';
-import { getNavigation } from '@/lib/api';
+import { getNavigation, getSiteData } from '@/lib/api';
 
 const DEFAULT_SERVICES_SUBITEMS = [
   {
@@ -59,6 +59,7 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
   const [navLinks, setNavLinks] = useState<NavItem[]>(DEFAULT_NAV_LINKS);
+  const [logoUrl, setLogoUrl] = useState<string | null>(null);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -69,9 +70,18 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Fetch dynamic manageable navigation items from CMS / database
+  // Fetch dynamic manageable navigation items and site logo from CMS / database
   useEffect(() => {
     let isMounted = true;
+
+    getSiteData()
+      .then((data) => {
+        if (isMounted && data?.site?.logoUrl) {
+          setLogoUrl(data.site.logoUrl);
+        }
+      })
+      .catch(() => null);
+
     getNavigation('HEADER')
       .then((items) => {
         if (!isMounted || !items || !Array.isArray(items) || items.length === 0) return;
@@ -119,7 +129,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         {/* Brand Logo */}
         <Link href="/" className="group" onClick={closeMenus}>
-          <BrandLogo variant="header" />
+          <BrandLogo variant="header" logoUrl={logoUrl} />
         </Link>
 
         {/* Desktop Navigation */}

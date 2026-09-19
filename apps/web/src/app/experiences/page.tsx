@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     'Explore over 20 years of flagship corporate events, national conferences, brand activations, and state symposiums.',
 };
 
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
 
 interface ExperiencesPageProps {
   searchParams: Promise<{

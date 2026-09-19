@@ -59,7 +59,7 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
   };
 }
 
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
 
 export default async function ServiceDetailPage({ params }: ServicePageProps) {
   const { slug } = await params;

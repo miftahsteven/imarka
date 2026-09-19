@@ -11,6 +11,8 @@ export const metadata: Metadata = {
     'Learn about IMARKA Megalo Indonesia — over 20 years of excellence in events, marketing communication, and people development.',
 };
 
+export const dynamic = 'force-dynamic';
+
 export default function AboutPage() {
   const values = [
     {

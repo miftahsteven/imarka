@@ -61,7 +61,7 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
   };
 }
 
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
 
 export default async function InsightDetailPage({ params }: PostPageProps) {
   const { slug } = await params;

@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     'Comprehensive corporate solutions across Branding & Marketing, Event & Experience, Training & People Development, and Procurement Support.',
 };
 
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
 
 export default async function ServicesPage() {
   const services = await getServices();

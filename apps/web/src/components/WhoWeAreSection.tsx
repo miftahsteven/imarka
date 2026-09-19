@@ -3,12 +3,27 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 
-export default function WhoWeAreSection() {
-  const highlights = [
+interface WhoWeAreProps {
+  data?: {
+    title?: string;
+    paragraphs?: string[];
+    highlightImage?: string;
+    highlights?: string[];
+  };
+}
+
+export default function WhoWeAreSection({ data }: WhoWeAreProps) {
+  const highlights = data?.highlights || [
     'Over 20 years of proven track record across Indonesia',
     'Strategic synergy between marketing, live production, and training',
     'Experience handling national summits, state dignitaries, and corporate giants',
     'Flawless on-ground technical, protocol, and artistic choreography',
+  ];
+
+  const title = data?.title || 'IMARKA MEGALO INDONESIA';
+  const paragraphs = data?.paragraphs && data.paragraphs.length > 0 ? data.paragraphs : [
+    'IMARKA Megalo Indonesia is a full-service experience and marketing solutions company with more than 20 years of proven track record in delivering impactful programs that engage audiences and create lasting value.',
+    'We combine strategic thinking, creative ideas, and flawless execution to produce experiences that inspire, educate, and drive results across government bodies, multinational enterprises, and consumer brands.',
   ];
 
   return (
@@ -22,23 +37,13 @@ export default function WhoWeAreSection() {
             </div>
 
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-brand-charcoal leading-tight">
-              IMARKA MEGALO INDONESIA
+              {title}
             </h2>
 
             <div className="space-y-4 text-base sm:text-lg text-brand-graphite leading-relaxed">
-              <p>
-                <strong className="text-brand-charcoal font-semibold">
-                  IMARKA Megalo Indonesia
-                </strong>{' '}
-                is a full-service experience and marketing solutions company with more than 20 years of
-                proven track record in delivering impactful programs that engage audiences and create
-                lasting value.
-              </p>
-              <p>
-                We combine strategic thinking, creative ideas, and flawless execution to produce
-                experiences that inspire, educate, and drive results across government bodies,
-                multinational enterprises, and consumer brands.
-              </p>
+              {paragraphs.map((p, idx) => (
+                <p key={idx}>{p}</p>
+              ))}
             </div>
 
             {/* Checklist items */}
@@ -73,7 +78,7 @@ export default function WhoWeAreSection() {
           <div className="lg:col-span-5 relative">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white bg-brand-charcoal aspect-[4/3]">
               <Image
-                src="/images/event-commonwealth-hd.jpg"
+                src={data?.highlightImage || '/images/event-commonwealth-hd.jpg'}
                 alt="IMARKA Megalo Live Production"
                 fill
                 className="object-cover hover:scale-105 transition-transform duration-700"

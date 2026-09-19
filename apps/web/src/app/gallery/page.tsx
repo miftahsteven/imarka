@@ -5,18 +5,20 @@ import Image from 'next/image';
 import { GalleryAlbum } from '@imarka/types';
 import { Images, Calendar, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import FinalCtaBanner from '@/components/FinalCtaBanner';
+import { getGallery } from '@/lib/api';
+
+export const dynamic = 'force-dynamic';
 
 export default function GalleryPage() {
   const [albums, setAlbums] = useState<GalleryAlbum[]>([]);
   const [selectedPhoto, setSelectedPhoto] = useState<{ url: string; caption?: string | null } | null>(null);
 
   useEffect(() => {
-    fetch('http://localhost:4000/api/v1/public/gallery')
-      .then((res) => res.json())
+    getGallery()
       .then((data) => {
         if (Array.isArray(data)) setAlbums(data);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error('Error loading gallery:', err));
   }, []);
 
   return (
