@@ -73,14 +73,38 @@ router.get('/home', async (_req: Request, res: Response) => {
       impactLabel: 'Impact Driven',
     };
 
-    const whoWeAre = {
+    const whoWeAreRecord = await prisma.customPage.findUnique({
+      where: { slug: 'system-who-we-are' },
+    });
+
+    let whoWeAre = {
       title: 'IMARKA MEGALO INDONESIA',
       paragraphs: [
         'IMARKA Megalo Indonesia is a full-service experience and marketing solutions company with more than 20 years of proven track record in delivering impactful programs that engage audiences and create lasting value.',
         'We combine strategic thinking, creative ideas, and flawless execution to produce experiences that inspire, educate, and drive results.',
       ],
-      highlightImage: '/images/hero-keynote.jpg',
+      highlightImage: '/images/event-commonwealth-hd.jpg',
+      highlights: [
+        'Over 20 years of proven track record across Indonesia',
+        'Strategic synergy between marketing, live production, and training',
+        'Experience handling national summits, state dignitaries, and corporate giants',
+        'Flawless on-ground technical, protocol, and artistic choreography',
+      ],
+      badgeTrackRecord: '20+ Years Track Record',
+      badgeSubtext: 'Over two decades of trust, innovation, and unforgettable experiences.',
+      floatingBadgeNumber: '20+',
+      floatingBadgeLabel: 'Years of Trust',
+      floatingBadgeSubtext: 'Creating connections that inspire change.',
     };
+
+    if (whoWeAreRecord && whoWeAreRecord.content) {
+      try {
+        const parsed = JSON.parse(whoWeAreRecord.content);
+        whoWeAre = { ...whoWeAre, ...parsed };
+      } catch (e) {
+        console.warn('Failed to parse whoWeAre JSON:', e);
+      }
+    }
 
     const howWeWork = [
       { step: 1, title: 'Strategic Thinking', description: 'Deep situational analysis and strategic clarity aligning every program directly with client objectives.' },
@@ -366,7 +390,7 @@ router.get('/navigation', async (req: Request, res: Response) => {
 router.get('/pages', async (_req: Request, res: Response) => {
   try {
     const pages = await prisma.customPage.findMany({
-      where: { status: 'PUBLISHED' },
+      where: { status: 'PUBLISHED', slug: { not: 'system-who-we-are' } },
       orderBy: { order: 'asc' },
       select: {
         id: true,

@@ -9,6 +9,11 @@ interface WhoWeAreProps {
     paragraphs?: string[];
     highlightImage?: string;
     highlights?: string[];
+    badgeTrackRecord?: string;
+    badgeSubtext?: string;
+    floatingBadgeNumber?: string;
+    floatingBadgeLabel?: string;
+    floatingBadgeSubtext?: string;
   };
 }
 
@@ -86,20 +91,24 @@ export default function WhoWeAreSection({ data }: WhoWeAreProps) {
               <div className="absolute inset-0 bg-gradient-to-t from-brand-charcoal/80 via-transparent to-transparent" />
               <div className="absolute bottom-4 left-4 right-4 text-white">
                 <span className="text-xs uppercase font-bold tracking-wider text-brand-red bg-white px-2 py-0.5 rounded">
-                  20+ Years Track Record
+                  {data?.badgeTrackRecord || '20+ Years Track Record'}
                 </span>
                 <p className="text-sm font-semibold mt-1 drop-shadow">
-                  Over two decades of trust, innovation, and unforgettable experiences.
+                  {data?.badgeSubtext || 'Over two decades of trust, innovation, and unforgettable experiences.'}
                 </p>
               </div>
             </div>
 
             {/* Decorative Angled Float Card */}
             <div className="absolute -bottom-6 -left-6 sm:-bottom-8 sm:-left-8 bg-brand-red text-white p-5 rounded-xl shadow-xl max-w-[220px] hidden sm:block">
-              <div className="text-3xl font-extrabold tracking-tight">20+</div>
-              <div className="text-xs font-bold uppercase tracking-wider mt-1">Years of Trust</div>
+              <div className="text-3xl font-extrabold tracking-tight">
+                {data?.floatingBadgeNumber || '20+'}
+              </div>
+              <div className="text-xs font-bold uppercase tracking-wider mt-1">
+                {data?.floatingBadgeLabel || 'Years of Trust'}
+              </div>
               <p className="text-[11px] text-white/90 mt-1">
-                Creating connections that inspire change.
+                {data?.floatingBadgeSubtext || 'Creating connections that inspire change.'}
               </p>
             </div>
           </div>

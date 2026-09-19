@@ -163,6 +163,66 @@ router.delete('/hero-slides/:id', async (req: AuthRequest, res: Response) => {
   }
 });
 
+// 3b. Who We Are Section Data
+const defaultWhoWeAre = {
+  title: 'IMARKA MEGALO INDONESIA',
+  paragraphs: [
+    'IMARKA Megalo Indonesia is a full-service experience and marketing solutions company with more than 20 years of proven track record in delivering impactful programs that engage audiences and create lasting value.',
+    'We combine strategic thinking, creative ideas, and flawless execution to produce experiences that inspire, educate, and drive results across government bodies, multinational enterprises, and consumer brands.',
+  ],
+  highlightImage: '/images/event-commonwealth-hd.jpg',
+  highlights: [
+    'Over 20 years of proven track record across Indonesia',
+    'Strategic synergy between marketing, live production, and training',
+    'Experience handling national summits, state dignitaries, and corporate giants',
+    'Flawless on-ground technical, protocol, and artistic choreography',
+  ],
+  badgeTrackRecord: '20+ Years Track Record',
+  badgeSubtext: 'Over two decades of trust, innovation, and unforgettable experiences.',
+  floatingBadgeNumber: '20+',
+  floatingBadgeLabel: 'Years of Trust',
+  floatingBadgeSubtext: 'Creating connections that inspire change.',
+};
+
+router.get('/who-we-are', async (_req: AuthRequest, res: Response) => {
+  try {
+    const page = await prisma.customPage.findUnique({ where: { slug: 'system-who-we-are' } });
+    if (!page || !page.content) {
+      return res.json(defaultWhoWeAre);
+    }
+    const data = JSON.parse(page.content);
+    return res.json({ ...defaultWhoWeAre, ...data });
+  } catch (err: any) {
+    return res.status(500).json({ error: 'Failed to fetch Who We Are settings' });
+  }
+});
+
+router.put('/who-we-are', async (req: AuthRequest, res: Response) => {
+  try {
+    const content = JSON.stringify(req.body);
+    await prisma.customPage.upsert({
+      where: { slug: 'system-who-we-are' },
+      update: {
+        title: req.body.title || 'IMARKA MEGALO INDONESIA',
+        heroImageUrl: req.body.highlightImage || '/images/event-commonwealth-hd.jpg',
+        excerpt: req.body.paragraphs?.[0] || '',
+        content,
+      },
+      create: {
+        slug: 'system-who-we-are',
+        title: req.body.title || 'IMARKA MEGALO INDONESIA',
+        heroImageUrl: req.body.highlightImage || '/images/event-commonwealth-hd.jpg',
+        excerpt: req.body.paragraphs?.[0] || '',
+        content,
+      },
+    });
+    await recordAudit(req, 'UPDATE', 'WhoWeAre', 'system-who-we-are', 'Updated homepage Who We Are section');
+    return res.json({ success: true, ...req.body });
+  } catch (err: any) {
+    return res.status(500).json({ error: 'Failed to update Who We Are settings' });
+  }
+});
+
 // 4. Services CRUD
 router.get('/services', async (_req: AuthRequest, res: Response) => {
   try {
@@ -740,6 +800,7 @@ router.post('/navigation/reorder', async (req: AuthRequest, res: Response) => {
 router.get('/pages', async (_req: AuthRequest, res: Response) => {
   try {
     const pages = await prisma.customPage.findMany({
+      where: { slug: { not: 'system-who-we-are' } },
       orderBy: { updatedAt: 'desc' },
     });
     return res.json(pages);
