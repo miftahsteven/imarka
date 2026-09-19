@@ -1,0 +1,31 @@
+{
+  "name": "imarka-megalo-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "pnpm@12.4.2",
+  "scripts": {
+    "dev": "pnpm --parallel run dev",
+    "dev:web": "pnpm --filter @imarka/web dev",
+    "dev:api": "pnpm --filter @imarka/api dev",
+    "dev:cms": "pnpm --filter @imarka/cms dev",
+    "build": "pnpm --recursive run build",
+    "db:generate": "pnpm --filter @imarka/api prisma generate --schema=../../prisma/schema.prisma",
+    "db:push": "pnpm --filter @imarka/api prisma db push --schema=../../prisma/schema.prisma",
+    "db:seed": "pnpm --filter @imarka/api tsx ../../prisma/seed.ts"
+  },
+  "devDependencies": {
+    "@prisma/client": "5.22.0",
+    "@types/node": "^26.6.1",
+    "prisma": "5.22.0",
+    "typescript": "^5.7.2"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@prisma/client",
+      "@prisma/engines",
+      "esbuild",
+      "prisma",
+      "bcryptjs"
+    ]
+  }
+}

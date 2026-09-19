@@ -1,0 +1,65 @@
+# Dependencies
+node_modules/
+*/node_modules/
+.pnpm-store/
+.pnpm-debug.log*
+
+# Environment Variables & Secrets
+.env
+.env*.local
+.env.development
+.env.production
+.env.test
+*.env
+!*.env.example
+!.env.example
+
+# Production & Build Outputs
+dist/
+*/dist/
+.next/
+*/.next/
+out/
+*/out/
+dist-ssr/
+build/
+*.tsbuildinfo
+
+# Uploads & Media Assets (Keep directory structure with .gitkeep)
+apps/api/uploads/*
+!apps/api/uploads/.gitkeep
+apps/web/public/uploads/*
+!apps/web/public/uploads/.gitkeep
+apps/cms/public/uploads/*
+!apps/cms/public/uploads/.gitkeep
+
+# System & OS Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE & Editor Settings
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+*.sublime-workspace
+*.sublime-project
+
+# Logs & Diagnostics
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Testing & Coverage
+coverage/
+*.lcov
+.nyc_output/
+.turbo/

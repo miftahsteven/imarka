@@ -1,0 +1,316 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum ContentStatus {
+  DRAFT
+  IN_REVIEW
+  SCHEDULED
+  PUBLISHED
+  ARCHIVED
+}
+
+enum UserRole {
+  SUPER_ADMIN
+  ADMINISTRATOR
+  EDITOR
+  AUTHOR
+  VIEWER
+}
+
+enum InquiryStatus {
+  NEW
+  CONTACTED
+  QUALIFIED
+  CLOSED
+  SPAM
+}
+
+model User {
+  id           String    @id @default(uuid())
+  email        String    @unique
+  passwordHash String
+  name         String
+  role         UserRole  @default(EDITOR)
+  avatarUrl    String?
+  isActive     Boolean   @default(true)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model SiteSetting {
+  id                     String   @id @default("default")
+  siteName               String   @default("IMARKA MEGALO INDONESIA")
+  tagline                String   @default("Experiences That Inspire")
+  description            String   @default("We Create Meaningful Connections That Move People and Drive Impact. Over 20 Years of Excellence in Events, Communication & Experiences.")
+  logoUrl                String   @default("/images/logo.png")
+  logoWhiteUrl           String?  @default("/images/logo-clean.png")
+  faviconUrl             String?  @default("/images/logo.png")
+  contactEmail           String   @default("emmy@imarka-megalo.com")
+  contactPhone           String   @default("08569529955")
+  contactWhatsapp        String   @default("628569529955")
+  address                String?  @default("Jakarta, Indonesia")
+  socialInstagram        String?  @default("https://instagram.com")
+  socialLinkedin         String?  @default("https://linkedin.com")
+  socialYoutube          String?  @default("https://youtube.com")
+  metaTitleDefault       String   @default("IMARKA MEGALO INDONESIA — Experiences That Inspire")
+  metaDescriptionDefault String   @default("Over 20 Years of Excellence in Events, Communication & Experiences. We Create Meaningful Connections That Move People and Drive Impact.")
+  ogImageDefault         String?  @default("/images/hero-keynote.jpg")
+  updatedAt              DateTime @updatedAt
+}
+
+model NavigationItem {
+  id        String           @id @default(uuid())
+  label     String
+  url       String
+  location  String           @default("HEADER")
+  order     Int              @default(0)
+  parentId  String?
+  parent    NavigationItem?  @relation("NavHierarchy", fields: [parentId], references: [id], onDelete: Cascade)
+  children  NavigationItem[] @relation("NavHierarchy")
+  isVisible Boolean          @default(true)
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @default(now()) @updatedAt
+}
+
+model HeroSlide {
+  id               String   @id @default(uuid())
+  eyebrow          String
+  headline         String
+  subheadline      String
+  primaryCtaText   String   @default("Explore Our Experiences")
+  primaryCtaUrl    String   @default("/experiences")
+  secondaryCtaText String?  @default("Let's Collaborate")
+  secondaryCtaUrl  String?  @default("/contact")
+  imageUrl         String
+  order            Int      @default(0)
+  isActive         Boolean  @default(true)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model Service {
+  id               String              @id @default(uuid())
+  slug             String              @unique
+  name             String
+  shortDescription String
+  fullDescription  String              @db.Text
+  iconName         String?
+  heroImageUrl     String?
+  isPillar         Boolean             @default(true)
+  order            Int                 @default(0)
+  capabilities     ServiceCapability[]
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+}
+
+model ServiceCapability {
+  id          String   @id @default(uuid())
+  serviceId   String
+  service     Service  @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  name        String
+  description String?
+  order       Int      @default(0)
+}
+
+model Industry {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  description String?
+  iconName    String?
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+}
+
+model Experience {
+  id              String            @id @default(uuid())
+  slug            String            @unique
+  title           String
+  clientName      String
+  year            Int
+  location        String
+  serviceCategory String
+  industry        String
+  coverImageUrl   String
+  summary         String            @db.Text
+  challenge       String?           @db.Text
+  approach        String?           @db.Text
+  execution       String?           @db.Text
+  outcome         String?           @db.Text
+  isFeatured      Boolean           @default(false)
+  order           Int               @default(0)
+  status          ContentStatus     @default(PUBLISHED)
+  media           ExperienceMedia[]
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+}
+
+model ExperienceMedia {
+  id           String     @id @default(uuid())
+  experienceId String
+  experience   Experience @relation(fields: [experienceId], references: [id], onDelete: Cascade)
+  mediaUrl     String
+  caption      String?
+  order        Int        @default(0)
+}
+
+model PostCategory {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  slug      String   @unique
+  createdAt DateTime @default(now())
+}
+
+model Post {
+  id              String        @id @default(uuid())
+  slug            String        @unique
+  title           String
+  excerpt         String        @db.Text
+  content         String        @db.Text
+  coverImageUrl   String
+  category        String
+  authorName      String        @default("IMARKA Editorial Team")
+  publishedAt     DateTime?     @default(now())
+  status          ContentStatus @default(PUBLISHED)
+  metaTitle       String?
+  metaDescription String?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+model GalleryAlbum {
+  id            String         @id @default(uuid())
+  title         String
+  slug          String         @unique
+  description   String?
+  date          String
+  coverImageUrl String
+  category      String
+  photos        GalleryPhoto[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+}
+
+model GalleryPhoto {
+  id        String       @id @default(uuid())
+  albumId   String
+  album     GalleryAlbum @relation(fields: [albumId], references: [id], onDelete: Cascade)
+  url       String
+  caption   String?
+  order     Int          @default(0)
+}
+
+model TeamMember {
+  id        String   @id @default(uuid())
+  name      String
+  role      String
+  bio       String?  @db.Text
+  imageUrl  String
+  email     String?
+  category  String   @default("LEADERSHIP") // LEADERSHIP or PRODUCTION
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Client {
+  id        String   @id @default(uuid())
+  name      String
+  logoUrl   String
+  industry  String?
+  order     Int      @default(0)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+model Testimonial {
+  id          String   @id @default(uuid())
+  quote       String   @db.Text
+  authorName  String
+  authorTitle String
+  companyName String
+  avatarUrl   String?
+  order       Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+}
+
+model ContactInquiry {
+  id              String        @id @default(uuid())
+  fullName        String
+  company         String?
+  email           String
+  phoneWhatsapp   String?
+  serviceInterest String?
+  estimatedDate   String?
+  estimatedBudget String?
+  message         String        @db.Text
+  status          InquiryStatus @default(NEW)
+  internalNotes   String?       @db.Text
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+model MediaAsset {
+  id           String   @id @default(uuid())
+  filename     String
+  originalName String
+  mimeType     String
+  size         Int
+  url          String
+  altText      String?
+  caption      String?
+  createdAt    DateTime @default(now())
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  actor     String
+  action    String
+  entity    String
+  entityId  String?
+  metadata  String?  @db.Text
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+}
+
+model CustomPage {
+  id              String        @id @default(uuid())
+  title           String
+  slug            String        @unique
+  heroImageUrl    String?
+  excerpt         String?
+  content         String        @db.Text
+  status          ContentStatus @default(PUBLISHED)
+  order           Int           @default(0)
+  metaTitle       String?
+  metaDescription String?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+model AnalyticsVisit {
+  id          String   @id @default(uuid())
+  path        String
+  pageTitle   String?
+  source      String
+  sourceType  String   @default("DIRECT")
+  device      String   @default("DESKTOP")
+  browser     String?
+  country     String   @default("Indonesia")
+  city        String?
+  ipHash      String?
+  duration    Int      @default(30)
+  createdAt   DateTime @default(now())
+
+  @@index([path])
+  @@index([source])
+  @@index([sourceType])
+  @@index([createdAt])
+}

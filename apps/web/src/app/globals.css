@@ -1,0 +1,71 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@layer base {
+  :root {
+    --brand-red: #BE0F1C;
+    --brand-red-dark: #8F0A14;
+    --brand-charcoal: #242629;
+    --brand-graphite: #4A4D52;
+    --brand-silver: #D9DADC;
+    --brand-light: #F8F9FA;
+    --brand-white: #FFFFFF;
+    --brand-black: #111214;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  }
+
+  body {
+    color: var(--brand-charcoal);
+    background-color: #FFFFFF;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Plus Jakarta Sans', var(--font-heading), sans-serif;
+    letter-spacing: -0.02em;
+  }
+}
+
+/* Diagonal cut motif for corporate editorial styling */
+.angled-mask-right {
+  clip-path: polygon(0 0, 100% 0, 88% 100%, 0% 100%);
+}
+
+.angled-mask-left {
+  clip-path: polygon(12% 0, 100% 0, 100% 100%, 0% 100%);
+}
+
+.angled-badge {
+  clip-path: polygon(6% 0, 100% 0, 94% 100%, 0% 100%);
+}
+
+/* Custom smooth scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #F1F1F1;
+}
+::-webkit-scrollbar-thumb {
+  background: #BE0F1C;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #8F0A14;
+}
+
+/* Animation utilities */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
