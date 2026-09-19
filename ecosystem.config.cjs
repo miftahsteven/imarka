@@ -42,10 +42,12 @@ module.exports = {
 
     // =========================================================
     // 3. WEB — Next.js → port 7050
+    //    Gunakan node_modules/next/dist/bin/next (file JS asli)
+    //    BUKAN node_modules/.bin/next (shell shim → SyntaxError di PM2)
     // =========================================================
     {
       name: 'imarka-web',
-      script: 'node_modules/.bin/next',
+      script: 'node_modules/next/dist/bin/next',
       args: 'start -p 7050',
       cwd: '/var/www/imarka/apps/web',
       instances: 1,
