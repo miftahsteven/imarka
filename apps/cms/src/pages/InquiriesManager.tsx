@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { cmsFetch } from '../lib/api';
+import { cmsFetch, API_BASE } from '../lib/api';
 import Header from '../components/Header';
 import { ContactInquiry, InquiryStatus } from '@imarka/types';
 import { Download, Trash2, Edit3, CheckCircle2, MessageSquare, Mail, Phone, Calendar } from 'lucide-react';
@@ -67,7 +67,7 @@ export default function InquiriesManager() {
   };
 
   const handleExportCsv = () => {
-    window.open('http://localhost:4000/api/v1/admin/inquiries/export/csv', '_blank');
+    window.open(`${API_BASE}/admin/inquiries/export/csv`, '_blank');
   };
 
   return (

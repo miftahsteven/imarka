@@ -1,5 +1,5 @@
-export const API_SERVER = 'http://localhost:4000';
-export const API_BASE = 'http://localhost:4000/api/v1';
+export const API_SERVER = import.meta.env.VITE_API_SERVER || '';
+export const API_BASE = import.meta.env.VITE_API_URL || '/api/v1';
 
 export function getImageUrl(path?: string | null): string {
   if (!path) return '';
@@ -7,7 +7,7 @@ export function getImageUrl(path?: string | null): string {
     return path;
   }
   const cleanPath = path.startsWith('/') ? path : `/${path}`;
-  return `${API_SERVER}${cleanPath}`;
+  return API_SERVER ? `${API_SERVER}${cleanPath}` : cleanPath;
 }
 
 export async function uploadMediaFile(file: File): Promise<{ url: string; originalName: string; size: number }> {
@@ -69,7 +69,7 @@ export async function cmsFetch<T>(endpoint: string, options: RequestInit = {}): 
 
   if (res.status === 401) {
     removeAuthToken();
-    window.location.href = '/login';
+    window.location.href = '/webpanel/login';
     throw new Error('Session expired');
   }
 

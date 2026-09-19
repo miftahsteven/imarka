@@ -37,7 +37,7 @@ function ProtectedLayout() {
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/webpanel">
       <Routes>
         <Route path="/login" element={<Login />} />
 

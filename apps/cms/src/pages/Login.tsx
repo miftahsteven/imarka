@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { setAuthToken, setStoredUser } from '../lib/api';
+import { setAuthToken, setStoredUser, API_BASE } from '../lib/api';
 import { Lock, Mail, AlertCircle, ArrowRight } from 'lucide-react';
 
 export default function Login() {
@@ -16,7 +16,7 @@ export default function Login() {
     setError('');
 
     try {
-      const res = await fetch('http://localhost:4000/api/v1/auth/login', {
+      const res = await fetch(`${API_BASE}/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),

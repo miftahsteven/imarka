@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { cmsFetch, getImageUrl } from '../lib/api';
+import { cmsFetch, getImageUrl, API_BASE } from '../lib/api';
 import Header from '../components/Header';
 import ImageUpload from '../components/ImageUpload';
 import { GalleryAlbum } from '@imarka/types';
@@ -20,7 +20,7 @@ export default function GalleryManager() {
       })
       .catch(() => {
         // Fallback to public endpoint if token not loaded yet
-        fetch('http://localhost:4000/api/v1/public/gallery')
+        fetch(`${API_BASE}/public/gallery`)
           .then((res) => res.json())
           .then((data) => {
             if (Array.isArray(data)) setAlbums(data);
