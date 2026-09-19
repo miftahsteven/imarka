@@ -4,6 +4,7 @@ import path from 'path';
 
 export default defineConfig({
   plugins: [react()],
+  base: '/webpanel/', // ← required: CMS served under /webpanel sub-path
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
