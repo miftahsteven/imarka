@@ -29,7 +29,14 @@ export async function fetchApi<T>(endpoint: string, options?: RequestInit): Prom
       return null;
     }
     return (await res.json()) as T;
-  } catch (err) {
+  } catch (err: any) {
+    if (
+      err?.digest === 'DYNAMIC_SERVER_USAGE' ||
+      err?.name === 'DynamicServerError' ||
+      (typeof err?.message === 'string' && err.message.includes('Dynamic server usage'))
+    ) {
+      throw err;
+    }
     console.warn(`Fetch error for ${endpoint}:`, err);
     return null;
   }

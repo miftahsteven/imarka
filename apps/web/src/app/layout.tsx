@@ -20,6 +20,8 @@ const inter = Inter({
   display: 'swap',
 });
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: {
     default: 'IMARKA MEGALO INDONESIA — Experiences That Inspire',
