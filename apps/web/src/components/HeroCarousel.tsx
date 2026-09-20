@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { HeroSlide } from '@imarka/types';
-import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface HeroCarouselProps {
   slides?: HeroSlide[];
@@ -103,42 +103,22 @@ export default function HeroCarousel({ slides = defaultSlides }: HeroCarouselPro
       })}
 
       {/* Hero Content Container */}
-      <div className="relative z-20 max-w-7xl mx-auto h-full px-6 sm:px-8 lg:px-12 flex items-center">
-        <div className="max-w-2xl space-y-6">
-          {/* Eyebrow — clean label, no badge noise */}
-          <p className="text-xs sm:text-sm font-semibold tracking-[0.2em] uppercase text-brand-red">
-            {current.eyebrow}
-          </p>
-
-          {/* Headline */}
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-[1.12] tracking-tight">
-            {current.headline}
-          </h1>
-
-          {/* Subheadline */}
-          <p className="text-sm sm:text-base text-white/75 leading-relaxed max-w-xl">
-            {current.subheadline}
-          </p>
-
-          {/* CTAs */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-2">
+      <div className="relative z-20 max-w-7xl mx-auto h-full px-6 sm:px-10 lg:px-12 pl-14 sm:pl-20 lg:pl-16 flex items-center">
+        <div className="max-w-lg sm:max-w-xl lg:max-w-2xl">
+          {current.primaryCtaUrl ? (
             <Link
-              href={current.primaryCtaUrl || '/experiences'}
-              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-brand-red hover:bg-brand-redDark text-white font-semibold text-sm rounded-full transition-all duration-200 hover:-translate-y-0.5 shadow-md"
+              href={current.primaryCtaUrl}
+              className="inline-block group focus:outline-hidden"
             >
-              <span>{current.primaryCtaText}</span>
-              <ArrowRight size={16} />
+              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-[3.25rem] xl:text-[3.5rem] font-extrabold text-white leading-[1.14] tracking-tight drop-shadow-lg line-clamp-3 group-hover:text-white/90 transition-colors">
+                {current.headline}
+              </h1>
             </Link>
-
-            {current.secondaryCtaText && (
-              <Link
-                href={current.secondaryCtaUrl || '/contact'}
-                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 border border-white/40 text-white font-semibold text-sm rounded-full transition-all duration-200 hover:bg-white/10 hover:-translate-y-0.5"
-              >
-                <span>{current.secondaryCtaText}</span>
-              </Link>
-            )}
-          </div>
+          ) : (
+            <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-[3.25rem] xl:text-[3.5rem] font-extrabold text-white leading-[1.14] tracking-tight drop-shadow-lg line-clamp-3">
+              {current.headline}
+            </h1>
+          )}
         </div>
       </div>
 
