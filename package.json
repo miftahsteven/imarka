@@ -9,9 +9,9 @@
     "dev:api": "pnpm --filter @imarka/api dev",
     "dev:cms": "pnpm --filter @imarka/cms dev",
     "build": "pnpm --recursive run build",
-    "db:generate": "pnpm --filter @imarka/api prisma generate --schema=../../prisma/schema.prisma",
-    "db:push": "pnpm --filter @imarka/api prisma db push --schema=../../prisma/schema.prisma",
-    "db:seed": "pnpm --filter @imarka/api tsx ../../prisma/seed.ts"
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:seed": "pnpm --filter @imarka/api exec tsx ../../prisma/seed.ts"
   },
   "devDependencies": {
     "@prisma/client": "5.22.0",
