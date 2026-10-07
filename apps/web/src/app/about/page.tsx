@@ -8,7 +8,7 @@ import FinalCtaBanner from '@/components/FinalCtaBanner';
 export const metadata: Metadata = {
   title: 'About Us',
   description:
-    'Learn about IMARKA Megalo Indonesia — over 20 years of excellence in events, marketing communication, and people development.',
+    'Learn about IMARKA Megalo Indonesia — over 30 years of excellence in events, marketing communication, and people development.',
 };
 
 export const dynamic = 'force-dynamic';
@@ -50,7 +50,7 @@ export default function AboutPage() {
             ABOUT US
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight">
-            Over 20 Years of Excellence
+            Over 30 Years of Excellence
           </h1>
           <p className="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto">
             Turning Ideas into Impactful Experiences That Inspire Change.
@@ -75,7 +75,7 @@ export default function AboutPage() {
                 accelerate organizational goals.
               </p>
               <p>
-                Across two decades of continuous evolution, we have partnered with government
+                Across three decades of continuous evolution, we have partnered with government
                 ministries, multinational corporations, state enterprises, financial institutions, and
                 global development agencies to orchestrate flagship symposiums, high-impact brand
                 activations, and transformative people development programs.

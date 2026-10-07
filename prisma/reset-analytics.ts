@@ -7,7 +7,7 @@ const PAGES = [
   { path: '/services', title: 'Our Services — 4 Pilar Strategis', weight: 22 },
   { path: '/experiences', title: 'Experiences & Portofolio — Studi Kasus', weight: 17 },
   { path: '/pages/sustainability-esg', title: 'Sustainability & ESG Commitment', weight: 12 },
-  { path: '/about', title: 'About Us — 20+ Tahun Dedikasi', weight: 9 },
+  { path: '/about', title: 'About Us — 30+ Tahun Dedikasi', weight: 9 },
   { path: '/contact', title: 'Contact & Inquiry — Penawaran Proyek', weight: 8 },
   { path: '/insights', title: 'Insights & News — Editorial Industri', weight: 6 },
 ];

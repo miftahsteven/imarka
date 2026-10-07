@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
   const title = `${s.name} — Service Solutions | IMARKA MEGALO INDONESIA`;
   const description =
     s.shortDescription ||
-    'Professional corporate services by PT IMARKA MEGALO INDONESIA with over 20 years of excellence.';
+    'Professional corporate services by PT IMARKA MEGALO INDONESIA with over 30 years of excellence.';
   const imageUrl = s.heroImageUrl?.startsWith('http')
     ? s.heroImageUrl
     : s.heroImageUrl

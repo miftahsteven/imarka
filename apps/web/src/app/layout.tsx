@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     template: '%s | IMARKA MEGALO INDONESIA',
   },
   description:
-    'Over 20 Years of Excellence in Corporate Events, Strategic Marketing Communication, Brand Activation & People Development. We Create Meaningful Connections That Move People and Drive Impact.',
+    'Over 30 Years of Excellence in Corporate Events, Strategic Marketing Communication, Brand Activation & People Development. We Create Meaningful Connections That Move People and Drive Impact.',
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.imarka-megalo.com'),
   applicationName: 'IMARKA MEGALO INDONESIA',
   keywords: [
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     siteName: 'IMARKA MEGALO INDONESIA',
     title: 'IMARKA MEGALO INDONESIA — Experiences That Inspire',
     description:
-      'Over 20 Years of Excellence in Corporate Events, Strategic Marketing Communication, Brand Activation & People Development. We Create Meaningful Connections That Move People and Drive Impact.',
+      'Over 30 Years of Excellence in Corporate Events, Strategic Marketing Communication, Brand Activation & People Development. We Create Meaningful Connections That Move People and Drive Impact.',
     images: [
       {
         url: 'https://www.imarka-megalo.com/images/imarka-og-share.png',
@@ -89,7 +89,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'IMARKA MEGALO INDONESIA — Experiences That Inspire',
     description:
-      'Over 20 Years of Excellence in Corporate Events, Strategic Marketing Communication, Brand Activation & People Development.',
+      'Over 30 Years of Excellence in Corporate Events, Strategic Marketing Communication, Brand Activation & People Development.',
     site: '@imarkamegalo',
     creator: '@imarkamegalo',
     images: [
@@ -141,7 +141,7 @@ export default function RootLayout({
     logo: 'https://www.imarka-megalo.com/images/imarka-symbol.png',
     image: 'https://www.imarka-megalo.com/images/imarka-og-share.png',
     description:
-      'Over 20 Years of Excellence in Corporate Events, Strategic Marketing Communication, Brand Activation & People Development.',
+      'Over 30 Years of Excellence in Corporate Events, Strategic Marketing Communication, Brand Activation & People Development.',
     foundingDate: '2004',
     telephone: '+628569529955',
     email: 'emmy@imarka-megalo.com',

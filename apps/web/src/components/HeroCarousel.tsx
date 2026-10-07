@@ -15,7 +15,7 @@ const defaultSlides: HeroSlide[] = [
     id: 'default-1',
     eyebrow: 'EXPERIENCES THAT INSPIRE',
     headline: 'We Create Meaningful Connections That Move People and Drive Impact.',
-    subheadline: 'Over 20 Years of Excellence in Events, Communication & Experiences. Turning Ideas into Impactful Experiences That Inspire Change.',
+    subheadline: 'Over 30 Years of Excellence in Events, Communication & Experiences. Turning Ideas into Impactful Experiences That Inspire Change.',
     primaryCtaText: 'Explore Our Experiences',
     primaryCtaUrl: '/experiences',
     secondaryCtaText: "Let's Collaborate",
@@ -52,9 +52,16 @@ const defaultSlides: HeroSlide[] = [
   },
 ];
 
+const fallbackImages = [
+  '/images/hero-keynote.jpg',
+  '/images/highlight-energizing-maluku-hd.jpg',
+  '/images/highlight-gef8-bali-hd.jpg',
+];
+
 export default function HeroCarousel({ slides = defaultSlides }: HeroCarouselProps) {
   const activeSlides = slides && slides.length > 0 ? slides : defaultSlides;
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [failedImages, setFailedImages] = useState<Record<number, boolean>>({});
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -78,6 +85,10 @@ export default function HeroCarousel({ slides = defaultSlides }: HeroCarouselPro
       {/* Background Image Layer */}
       {activeSlides.map((slide, index) => {
         const isCurrent = index === currentIndex;
+        const imageSrc = failedImages[index]
+          ? fallbackImages[index % fallbackImages.length]
+          : slide.imageUrl || fallbackImages[index % fallbackImages.length];
+
         return (
           <div
             key={slide.id || index}
@@ -87,12 +98,13 @@ export default function HeroCarousel({ slides = defaultSlides }: HeroCarouselPro
           >
             <div className="relative w-full h-full">
               <Image
-                src={slide.imageUrl}
+                src={imageSrc}
                 alt={slide.headline}
                 fill
                 priority={index === 0}
                 fetchPriority={index === 0 ? 'high' : 'low'}
                 loading={index === 0 ? 'eager' : 'lazy'}
+                onError={() => setFailedImages((prev) => ({ ...prev, [index]: true }))}
                 className="object-cover object-center"
               />
               {/* Clean brand overlay — charcoal ke kanan transparan */}

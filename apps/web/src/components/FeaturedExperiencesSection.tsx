@@ -22,7 +22,7 @@ export default function FeaturedExperiencesSection({ experiences }: FeaturedProp
               FEATURED EXPERIENCES
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-brand-charcoal tracking-tight">
-              More Than 20 Years of Trust & Success
+              More Than 30 Years of Trust & Success
             </h2>
             <p className="text-base sm:text-lg text-brand-graphite leading-relaxed">
               We are proud to have partnered with leading organizations across industries, delivering

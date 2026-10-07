@@ -65,7 +65,7 @@ export default async function Footer() {
             </p>
             <p className="text-sm text-gray-300 leading-relaxed pr-6">
               {site?.description ||
-                'We Create Meaningful Connections That Move People and Drive Impact. Over 20 Years of Excellence in Events, Communication & Experiences. Turning ideas into impactful experiences that inspire change.'}
+                'We Create Meaningful Connections That Move People and Drive Impact. Over 30 Years of Excellence in Events, Communication & Experiences. Turning ideas into impactful experiences that inspire change.'}
             </p>
             <div className="flex items-center gap-3 pt-2">
               <a

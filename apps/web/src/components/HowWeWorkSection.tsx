@@ -45,7 +45,7 @@ export default function HowWeWorkSection() {
             How We Work
           </h2>
           <p className="text-base sm:text-lg text-gray-300">
-            A battle-tested 4-pillar methodology honed across 20+ years of delivering high-stakes
+            A battle-tested 4-pillar methodology honed across 30+ years of delivering high-stakes
             corporate and institutional experiences.
           </p>
         </div>

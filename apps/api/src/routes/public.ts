@@ -67,7 +67,7 @@ router.get('/home', async (_req: Request, res: Response) => {
 
     // Credibility, who we are, and how we work data from company profile
     const credibility = {
-      yearsOfExperience: '20+ Years',
+      yearsOfExperience: '30+ Years',
       industriesLabel: 'Multi-Industry',
       deliveryLabel: 'End-to-End',
       impactLabel: 'Impact Driven',
@@ -80,19 +80,19 @@ router.get('/home', async (_req: Request, res: Response) => {
     let whoWeAre = {
       title: 'IMARKA MEGALO INDONESIA',
       paragraphs: [
-        'IMARKA Megalo Indonesia is a full-service experience and marketing solutions company with more than 20 years of proven track record in delivering impactful programs that engage audiences and create lasting value.',
+        'IMARKA Megalo Indonesia is a full-service experience and marketing solutions company with more than 30 years of proven track record in delivering impactful programs that engage audiences and create lasting value.',
         'We combine strategic thinking, creative ideas, and flawless execution to produce experiences that inspire, educate, and drive results.',
       ],
       highlightImage: '/images/event-commonwealth-hd.jpg',
       highlights: [
-        'Over 20 years of proven track record across Indonesia',
+        'Over 30 years of proven track record across Indonesia',
         'Strategic synergy between marketing, live production, and training',
         'Experience handling national summits, state dignitaries, and corporate giants',
         'Flawless on-ground technical, protocol, and artistic choreography',
       ],
-      badgeTrackRecord: '20+ Years Track Record',
-      badgeSubtext: 'Over two decades of trust, innovation, and unforgettable experiences.',
-      floatingBadgeNumber: '20+',
+      badgeTrackRecord: '30+ Years Track Record',
+      badgeSubtext: 'Over three decades of trust, innovation, and unforgettable experiences.',
+      floatingBadgeNumber: '30+',
       floatingBadgeLabel: 'Years of Trust',
       floatingBadgeSubtext: 'Creating connections that inspire change.',
     };

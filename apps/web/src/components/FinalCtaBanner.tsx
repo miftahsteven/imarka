@@ -20,7 +20,7 @@ export default function FinalCtaBanner() {
         </h2>
 
         <p className="max-w-2xl mx-auto text-base sm:text-lg text-white/90 leading-relaxed font-normal">
-          Whether you are launching a product, hosting an international conference, or developing your workforce, we bring over 20 years of proven expertise.
+          Whether you are launching a product, hosting an international conference, or developing your workforce, we bring over 30 years of proven expertise.
         </p>
 
         <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">

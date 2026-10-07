@@ -167,19 +167,19 @@ router.delete('/hero-slides/:id', async (req: AuthRequest, res: Response) => {
 const defaultWhoWeAre = {
   title: 'IMARKA MEGALO INDONESIA',
   paragraphs: [
-    'IMARKA Megalo Indonesia is a full-service experience and marketing solutions company with more than 20 years of proven track record in delivering impactful programs that engage audiences and create lasting value.',
+    'IMARKA Megalo Indonesia is a full-service experience and marketing solutions company with more than 30 years of proven track record in delivering impactful programs that engage audiences and create lasting value.',
     'We combine strategic thinking, creative ideas, and flawless execution to produce experiences that inspire, educate, and drive results across government bodies, multinational enterprises, and consumer brands.',
   ],
   highlightImage: '/images/event-commonwealth-hd.jpg',
   highlights: [
-    'Over 20 years of proven track record across Indonesia',
+    'Over 30 years of proven track record across Indonesia',
     'Strategic synergy between marketing, live production, and training',
     'Experience handling national summits, state dignitaries, and corporate giants',
     'Flawless on-ground technical, protocol, and artistic choreography',
   ],
-  badgeTrackRecord: '20+ Years Track Record',
-  badgeSubtext: 'Over two decades of trust, innovation, and unforgettable experiences.',
-  floatingBadgeNumber: '20+',
+  badgeTrackRecord: '30+ Years Track Record',
+  badgeSubtext: 'Over three decades of trust, innovation, and unforgettable experiences.',
+  floatingBadgeNumber: '30+',
   floatingBadgeLabel: 'Years of Trust',
   floatingBadgeSubtext: 'Creating connections that inspire change.',
 };

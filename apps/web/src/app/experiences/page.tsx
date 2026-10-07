@@ -8,7 +8,7 @@ import { getExperiences } from '@/lib/api';
 export const metadata: Metadata = {
   title: 'Experiences & Portfolio',
   description:
-    'Explore over 20 years of flagship corporate events, national conferences, brand activations, and state symposiums.',
+    'Explore over 30 years of flagship corporate events, national conferences, brand activations, and state symposiums.',
 };
 
 export const dynamic = 'force-dynamic';
@@ -55,7 +55,7 @@ export default async function ExperiencesPage({ searchParams }: ExperiencesPageP
             Our Experiences
           </h1>
           <p className="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto">
-            More than 20 years of delivering impactful events, high-resonance campaigns, and lasting
+            More than 30 years of delivering impactful events, high-resonance campaigns, and lasting
             connections.
           </p>
         </div>

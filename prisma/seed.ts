@@ -30,7 +30,7 @@ async function main() {
       id: 'default',
       siteName: 'IMARKA MEGALO INDONESIA',
       tagline: 'Experiences That Inspire',
-      description: 'We Create Meaningful Connections That Move People and Drive Impact. Over 20 Years of Excellence in Events, Communication & Experiences.',
+      description: 'We Create Meaningful Connections That Move People and Drive Impact. Over 30 Years of Excellence in Events, Communication & Experiences.',
       logoUrl: '/images/imarka-symbol.png',
       logoWhiteUrl: '/images/imarka-symbol.png',
       faviconUrl: '/images/imarka-symbol.png',
@@ -41,7 +41,7 @@ async function main() {
       socialInstagram: 'https://instagram.com',
       socialLinkedin: 'https://linkedin.com',
       metaTitleDefault: 'IMARKA MEGALO INDONESIA — Experiences That Inspire',
-      metaDescriptionDefault: 'Over 20 Years of Excellence in Events, Communication & Experiences. Turning Ideas into Impactful Experiences That Inspire Change.',
+      metaDescriptionDefault: 'Over 30 Years of Excellence in Events, Communication & Experiences. Turning Ideas into Impactful Experiences That Inspire Change.',
       ogImageDefault: '/images/hero-keynote.jpg',
     },
   });
@@ -74,7 +74,7 @@ async function main() {
     {
       eyebrow: 'EXPERIENCES THAT INSPIRE',
       headline: 'We Create Meaningful Connections That Move People and Drive Impact.',
-      subheadline: 'Over 20 Years of Excellence in Events, Communication & Experiences. Turning Ideas into Impactful Experiences That Inspire Change.',
+      subheadline: 'Over 30 Years of Excellence in Events, Communication & Experiences. Turning Ideas into Impactful Experiences That Inspire Change.',
       primaryCtaText: 'Explore Our Experiences',
       primaryCtaUrl: '/experiences',
       secondaryCtaText: "Let's Collaborate",
@@ -392,7 +392,7 @@ async function main() {
     {
       name: 'Emmy Sidabutar',
       role: 'Project Director',
-      bio: 'Leading strategic project execution, high-level client relations, and operational excellence across 20+ years of corporate event management.',
+      bio: 'Leading strategic project execution, high-level client relations, and operational excellence across 30+ years of corporate event management.',
       imageUrl: '/images/team-emmy-hd.jpg',
       email: 'emmy@imarka-megalo.com',
       category: 'LEADERSHIP',

@@ -47,7 +47,7 @@ model SiteSetting {
   id                     String   @id @default("default")
   siteName               String   @default("IMARKA MEGALO INDONESIA")
   tagline                String   @default("Experiences That Inspire")
-  description            String   @default("We Create Meaningful Connections That Move People and Drive Impact. Over 20 Years of Excellence in Events, Communication & Experiences.")
+  description            String   @default("We Create Meaningful Connections That Move People and Drive Impact. Over 30 Years of Excellence in Events, Communication & Experiences.")
   logoUrl                String   @default("/images/logo.png")
   logoWhiteUrl           String?  @default("/images/logo-clean.png")
   faviconUrl             String?  @default("/images/logo.png")
@@ -59,7 +59,7 @@ model SiteSetting {
   socialLinkedin         String?  @default("https://linkedin.com")
   socialYoutube          String?  @default("https://youtube.com")
   metaTitleDefault       String   @default("IMARKA MEGALO INDONESIA — Experiences That Inspire")
-  metaDescriptionDefault String   @default("Over 20 Years of Excellence in Events, Communication & Experiences. We Create Meaningful Connections That Move People and Drive Impact.")
+  metaDescriptionDefault String   @default("Over 30 Years of Excellence in Events, Communication & Experiences. We Create Meaningful Connections That Move People and Drive Impact.")
   ogImageDefault         String?  @default("/images/hero-keynote.jpg")
   updatedAt              DateTime @updatedAt
 }

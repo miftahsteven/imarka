@@ -9,7 +9,7 @@ interface CredibilityProps {
 }
 
 export default function CredibilityStrip({
-  years = '20+ Years',
+  years = '30+ Years',
   industries = 'Multi-Industry',
   delivery = 'End-to-End',
   impact = 'Impact Driven',

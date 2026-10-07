@@ -1,4 +1,6 @@
-import React from 'react';
+'use client';
+
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
@@ -17,9 +19,16 @@ interface WhoWeAreProps {
   };
 }
 
+const fallbackImage = '/images/event-commonwealth-hd.jpg';
+
 export default function WhoWeAreSection({ data }: WhoWeAreProps) {
+  const [imgSrc, setImgSrc] = useState(data?.highlightImage || fallbackImage);
+
+  useEffect(() => {
+    setImgSrc(data?.highlightImage || fallbackImage);
+  }, [data?.highlightImage]);
   const highlights = data?.highlights || [
-    'Over 20 years of proven track record across Indonesia',
+    'Over 30 years of proven track record across Indonesia',
     'Strategic synergy between marketing, live production, and training',
     'Experience handling national summits, state dignitaries, and corporate giants',
     'Flawless on-ground technical, protocol, and artistic choreography',
@@ -27,7 +36,7 @@ export default function WhoWeAreSection({ data }: WhoWeAreProps) {
 
   const title = data?.title || 'IMARKA MEGALO INDONESIA';
   const paragraphs = data?.paragraphs && data.paragraphs.length > 0 ? data.paragraphs : [
-    'IMARKA Megalo Indonesia is a full-service experience and marketing solutions company with more than 20 years of proven track record in delivering impactful programs that engage audiences and create lasting value.',
+    'IMARKA Megalo Indonesia is a full-service experience and marketing solutions company with more than 30 years of proven track record in delivering impactful programs that engage audiences and create lasting value.',
     'We combine strategic thinking, creative ideas, and flawless execution to produce experiences that inspire, educate, and drive results across government bodies, multinational enterprises, and consumer brands.',
   ];
 
@@ -38,7 +47,7 @@ export default function WhoWeAreSection({ data }: WhoWeAreProps) {
           {/* Left: Narrative Column (7 cols) */}
           <div className="lg:col-span-7 space-y-6">
             <div className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-brand-red bg-brand-light px-3 py-1 rounded-md border border-brand-red/10">
-              WHO WE ARE
+              INTRODUCTION
             </div>
 
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-brand-charcoal leading-tight">
@@ -73,7 +82,7 @@ export default function WhoWeAreSection({ data }: WhoWeAreProps) {
                 href="/experiences"
                 className="text-sm font-bold text-brand-red hover:text-brand-redDark transition-colors flex items-center justify-center sm:justify-start gap-1.5 py-1"
               >
-                <span>Explore 20+ Years Portfolio</span>
+                <span>Explore 30+ Years Portfolio</span>
                 <ArrowRight size={14} />
               </Link>
             </div>
@@ -83,26 +92,27 @@ export default function WhoWeAreSection({ data }: WhoWeAreProps) {
           <div className="lg:col-span-5 relative">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white bg-brand-charcoal aspect-[4/3]">
               <Image
-                src={data?.highlightImage || '/images/event-commonwealth-hd.jpg'}
+                src={imgSrc}
                 alt="IMARKA Megalo Live Production"
                 fill
+                onError={() => setImgSrc(fallbackImage)}
                 className="object-cover hover:scale-105 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-brand-charcoal/80 via-transparent to-transparent" />
               <div className="absolute bottom-4 left-4 right-4 text-white">
                 <span className="text-xs uppercase font-bold tracking-wider text-brand-red bg-white px-2 py-0.5 rounded">
-                  {data?.badgeTrackRecord || '20+ Years Track Record'}
+                  {data?.badgeTrackRecord || '30+ Years Track Record'}
                 </span>
                 <p className="text-sm font-semibold mt-1 drop-shadow">
-                  {data?.badgeSubtext || 'Over two decades of trust, innovation, and unforgettable experiences.'}
+                  {data?.badgeSubtext || 'Over three decades of trust, innovation, and unforgettable experiences.'}
                 </p>
               </div>
             </div>
 
             {/* Decorative Angled Float Card */}
-            <div className="absolute -bottom-6 -left-6 sm:-bottom-8 sm:-left-8 bg-brand-red text-white p-5 rounded-xl shadow-xl max-w-[220px] hidden sm:block">
+            <div className="absolute -top-6 -left-6 sm:-top-8 sm:-left-8 bg-brand-red text-white p-5 rounded-2xl shadow-2xl border-2 border-white/20 max-w-[220px] hidden sm:block z-10">
               <div className="text-3xl font-extrabold tracking-tight">
-                {data?.floatingBadgeNumber || '20+'}
+                {data?.floatingBadgeNumber || '30+'}
               </div>
               <div className="text-xs font-bold uppercase tracking-wider mt-1">
                 {data?.floatingBadgeLabel || 'Years of Trust'}
